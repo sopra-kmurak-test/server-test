@@ -12,7 +12,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -41,14 +43,15 @@ public class UserService {
 
   public User createUser(User newUser) {
     newUser.setToken(UUID.randomUUID().toString());
-    newUser.setStatus(UserStatus.OFFLINE);
+    newUser.setStatus(UserStatus.ONLINE);
+    newUser.setCreation_date(new Date());
+    newUser.setBirthday(null);
     checkIfUserExists(newUser);
     // saves the given entity but data is only persisted in the database once
     // flush() is called
     newUser = userRepository.save(newUser);
     userRepository.flush();
-
-    log.debug("Created Information for User: {}", newUser);
+//    log.debug("Created Information for User: {}", newUser);
     return newUser;
   }
 
@@ -64,16 +67,73 @@ public class UserService {
    */
   private void checkIfUserExists(User userToBeCreated) {
     User userByUsername = userRepository.findByUsername(userToBeCreated.getUsername());
-    User userByName = userRepository.findByName(userToBeCreated.getName());
-
     String baseErrorMessage = "The %s provided %s not unique. Therefore, the user could not be created!";
-    if (userByUsername != null && userByName != null) {
-      throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
-          String.format(baseErrorMessage, "username and the name", "are"));
-    } else if (userByUsername != null) {
-      throw new ResponseStatusException(HttpStatus.BAD_REQUEST, String.format(baseErrorMessage, "username", "is"));
-    } else if (userByName != null) {
-      throw new ResponseStatusException(HttpStatus.BAD_REQUEST, String.format(baseErrorMessage, "name", "is"));
+    if (userByUsername != null) {
+      throw new ResponseStatusException(HttpStatus.CONFLICT, String.format(baseErrorMessage, "username", "is"));
     }
   }
+
+    public User getUserByUserId(Long userId) {
+        String baseErrorMessage = "user with %s was not found!";
+        Optional<User> userOptional = this.userRepository.findById(userId);
+        if (userOptional.isPresent()) {
+            return userOptional.get();
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                    String.format(baseErrorMessage, userId));
+        }
+    }
+
+    public User updateUser2(long id, User user) {
+        // check user
+
+        User userByUserId = getUserByUserId(id);
+        if (userByUserId == null){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                    String.format("user Id :%s not found!",id));
+        }
+        if (user.getUsername() != null && !user.getUsername().equals("")) {
+
+            userByUserId.setUsername(user.getUsername());
+        }
+        userByUserId.setBirthday(user.getBirthday());
+
+        this.userRepository.save(userByUserId);
+        userRepository.flush();
+        return userByUserId;
+    }
+    public void updateUser(User user) {
+      // check user
+       User userByUserId = getUserByUserId(user.getId());
+       userByUserId.setBirthday(user.getBirthday());
+       userByUserId.setUsername(user.getUsername());
+       this.userRepository.save(userByUserId);
+    }
+
+    public User logout(long id)
+    {
+        User user = userRepository.findById(id);
+        if (user == null) {
+            String errorMessage = "The user does not exist.";
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format(errorMessage));
+        }
+
+        user.setStatus(UserStatus.OFFLINE);
+        this.userRepository.save(user);
+        userRepository.flush();
+
+        return user;
+    }
+    public User login(User userInput) {
+        String baseErrorMessage = "username or password error!";
+        User byUsernameAndPassword = userRepository.findByUsernameAndPassword(userInput.getUsername(), userInput.getPassword());
+        if (byUsernameAndPassword == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                    String.format(baseErrorMessage));
+        }
+        byUsernameAndPassword.setStatus(UserStatus.ONLINE);
+        this.userRepository.save(byUsernameAndPassword);
+        userRepository.flush();
+        return byUsernameAndPassword;
+    }
 }
