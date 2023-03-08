@@ -68,7 +68,7 @@ public class UserControllerTest {
         .andExpect(jsonPath("$", hasSize(1)))
             .andExpect(jsonPath("$[0].id", is(user.getId().intValue())))
             .andExpect(jsonPath("$[0].username", is(user.getUsername())))
-            //.andExpect(jsonPath("$[0].token", is(user.getToken())))
+            .andExpect(jsonPath("$[0].token", is(user.getToken())))
             .andExpect(jsonPath("$[0].status", is(user.getStatus().toString())))
             .andExpect(jsonPath("$[0].creation_date", is(user.getCreation_date())))
             .andExpect(jsonPath("$[0].birthday", is(user.getBirthday())));
@@ -101,7 +101,7 @@ public class UserControllerTest {
             .andExpect(status().isCreated())
             .andExpect(jsonPath("$.id", is(user.getId().intValue())))
             .andExpect(jsonPath("$.username", is(user.getUsername())))
-            //.andExpect(jsonPath("$.token", is(user.getToken())))
+            .andExpect(jsonPath("$.token", is(user.getToken())))
             .andExpect(jsonPath("$.status", is(user.getStatus().toString())))
             .andExpect(jsonPath("$.creation_date", is(user.getCreation_date())))
             .andExpect(jsonPath("$.birthday", is(user.getBirthday())));
@@ -159,7 +159,7 @@ public class UserControllerTest {
         mockMvc.perform(getRequest).andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", is(user.getId().intValue())))
                 .andExpect(jsonPath("$.username", is(user.getUsername())))
-                //.andExpect(jsonPath("$.token", is(user.getToken())))
+                .andExpect(jsonPath("$.token", is(user.getToken())))
                 .andExpect(jsonPath("$.status", is(user.getStatus().toString())))
                 .andExpect(jsonPath("$.creation_date", is(user.getCreation_date())))
                 .andExpect(jsonPath("$.birthday", is(user.getBirthday())));

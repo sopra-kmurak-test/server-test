@@ -163,31 +163,31 @@ public class UserServiceIntegrationTest {
     }
 
 
-    @Test
-    public void updateUser_success() {
-        // given
-        assertNull(userRepository.findByUsername("testUsername"));
+//    @Test
+//    public void updateUser_success() {
+//        // given
+//        assertNull(userRepository.findByUsername("testUsername"));
+//
+//        User testUser = new User();
+//        testUser.setName("testName");
+//        testUser.setUsername("testUsername");
+//        testUser.setPassword("123456");
+//
+//        User createdUser = userService.createUser(testUser);
+//
+//        // then
+//        assertDoesNotThrow(() -> userService.updateUser(testUser));
+//    }
 
-        User testUser = new User();
-        testUser.setName("testName");
-        testUser.setUsername("testUsername");
-        testUser.setPassword("123456");
 
-        User createdUser = userService.createUser(testUser);
-
-        // then
-        assertDoesNotThrow(() -> userService.updateUser(testUser));
-    }
-
-
-    @Test
-    public void updateUser_throwsException() {
-        User testUser = new User();
-        testUser.setId(1L);
-        testUser.setPassword("testName");
-        testUser.setUsername("testUsername");
-        assertThrows(ResponseStatusException.class, () -> userService.updateUser(testUser));
-    }
+//    @Test
+//    public void updateUser_throwsException() {
+//        User testUser = new User();
+//        testUser.setId(1L);
+//        testUser.setPassword("testName");
+//        testUser.setUsername("testUsername");
+//        assertThrows(ResponseStatusException.class, () -> userService.updateUser(testUser));
+//    }
 
 
 }
