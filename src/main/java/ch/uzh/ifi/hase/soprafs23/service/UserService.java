@@ -102,13 +102,14 @@ public class UserService {
         userRepository.flush();
         return userByUserId;
     }
-    public void updateUser(User user) {
-      // check user
-       User userByUserId = getUserByUserId(user.getId());
-       userByUserId.setBirthday(user.getBirthday());
-       userByUserId.setUsername(user.getUsername());
-       this.userRepository.save(userByUserId);
-    }
+
+//    public void updateUser(User user) {
+//      // check user
+//       User userByUserId = getUserByUserId(user.getId());
+//       userByUserId.setBirthday(user.getBirthday());
+//       userByUserId.setUsername(user.getUsername());
+//       this.userRepository.save(userByUserId);
+//    }
 
     public User logout(long id)
     {
