@@ -3,6 +3,7 @@ package ch.uzh.ifi.hase.soprafs23.controller;
 import ch.uzh.ifi.hase.soprafs23.entity.User;
 import ch.uzh.ifi.hase.soprafs23.rest.dto.UserGetDTO;
 import ch.uzh.ifi.hase.soprafs23.rest.dto.UserPostDTO;
+import ch.uzh.ifi.hase.soprafs23.rest.dto.UserPutDTO;
 import ch.uzh.ifi.hase.soprafs23.rest.mapper.DTOMapper;
 import ch.uzh.ifi.hase.soprafs23.service.UserService;
 import org.springframework.http.HttpStatus;
@@ -81,19 +82,19 @@ public class UserController {
   @PutMapping("/users/{userId}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
   @ResponseBody
-  public void updateUser(@PathVariable long userId, @RequestBody UserPostDTO userPostDTO) {
+  public void updateUser(@PathVariable long userId, @RequestBody UserPutDTO userPutDTO) {
       // update user profile
-      User userInput = DTOMapper.INSTANCE.convertUserPostDTOtoEntity(userPostDTO);
+      User userInput = DTOMapper.INSTANCE.convertUserPutDTOtoEntity(userPutDTO);
       User user = userService.updateUser2(userId, userInput);
   }
 
     @PutMapping("/logout/{id}")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public UserGetDTO logout(@PathVariable long id) {
+    public void logout(@PathVariable long id) {
         // update user profile
         User user = userService.logout(id);
 
-        return DTOMapper.INSTANCE.convertEntityToUserGetDTO(user);
+        //return DTOMapper.INSTANCE.convertEntityToUserGetDTO(user);
     }
 }

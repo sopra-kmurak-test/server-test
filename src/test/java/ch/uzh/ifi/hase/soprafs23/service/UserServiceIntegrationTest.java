@@ -55,7 +55,7 @@ public class UserServiceIntegrationTest {
     assertEquals(testUser.getName(), createdUser.getName());
     assertEquals(testUser.getUsername(), createdUser.getUsername());
     assertNotNull(createdUser.getToken());
-    assertEquals(UserStatus.OFFLINE, createdUser.getStatus());
+    assertEquals(UserStatus.ONLINE, createdUser.getStatus());
   }
 
   @Test
@@ -98,7 +98,7 @@ public class UserServiceIntegrationTest {
         assertEquals(testUser.getName(), users.get(0).getName());
         assertEquals(testUser.getUsername(), users.get(0).getUsername());
         assertNotNull(users.get(0).getToken());
-        assertEquals(UserStatus.OFFLINE, users.get(0).getStatus());
+        assertEquals(UserStatus.ONLINE, users.get(0).getStatus());
     }
 
 
@@ -122,7 +122,7 @@ public class UserServiceIntegrationTest {
         assertEquals(testUser.getName(), userByUserId.getName());
         assertEquals(testUser.getUsername(), userByUserId.getUsername());
         assertNotNull(userByUserId.getToken());
-        assertEquals(UserStatus.OFFLINE, userByUserId.getStatus());
+        assertEquals(UserStatus.ONLINE, userByUserId.getStatus());
     }
 
 
@@ -150,7 +150,7 @@ public class UserServiceIntegrationTest {
         assertEquals(testUser.getPassword(), userByUserId.getPassword());
         assertEquals(testUser.getUsername(), userByUserId.getUsername());
         assertNotNull(userByUserId.getToken());
-        assertEquals(UserStatus.OFFLINE, userByUserId.getStatus());
+        assertEquals(UserStatus.ONLINE, userByUserId.getStatus());
     }
 
 
