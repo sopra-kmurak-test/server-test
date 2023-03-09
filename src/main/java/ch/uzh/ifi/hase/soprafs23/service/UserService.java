@@ -126,7 +126,7 @@ public class UserService {
         return user;
     }
     public User login(User userInput) {
-        String baseErrorMessage = "username or password error!";
+        String baseErrorMessage = "Username or Password error!";
         User byUsernameAndPassword = userRepository.findByUsernameAndPassword(userInput.getUsername(), userInput.getPassword());
         if (byUsernameAndPassword == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,
