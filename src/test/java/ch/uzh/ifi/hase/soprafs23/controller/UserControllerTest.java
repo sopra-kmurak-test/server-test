@@ -8,6 +8,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 //import org.mockito.Mockito;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -126,7 +127,7 @@ public class UserControllerTest {
 
 
     @Test
-    public void createUser_notUniquename_returnConflict() throws Exception {
+    public void createUser_notUniqueName_returnConflict() throws Exception {
         // given
         User user = new User();
         user.setId(1L);
@@ -140,7 +141,7 @@ public class UserControllerTest {
         userPostDTO.setUsername("testUsername");
 
         Exception conflict_excp = new ResponseStatusException(HttpStatus.CONFLICT);
-        given(userService.createUser(any())).willThrow(conflict_excp);
+        given(userService.createUser(Mockito.any())).willThrow(conflict_excp);
 
         // when/then -> do the request + validate the result
         MockHttpServletRequestBuilder getRequest = post("/users")

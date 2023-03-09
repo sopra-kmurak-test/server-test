@@ -92,9 +92,12 @@ public class UserService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,
                     String.format("user Id :%s not found!",id));
         }
-        if (user.getUsername() != null && !user.getUsername().equals("")) {
-
-            userByUserId.setUsername(user.getUsername());
+//        if (user.getUsername() != null && !user.getUsername().equals("")) {
+//
+//            userByUserId.setUsername(user.getUsername());
+//        }
+        if (user.getUsername() != null && !user.getUsername().trim().equals("")) {
+            userByUserId.setUsername(user.getUsername().trim());
         }
         userByUserId.setBirthday(user.getBirthday());
 

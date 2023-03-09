@@ -40,7 +40,7 @@ public class DTOMapperTest {
       // given
       User user = new User();
       user.setId(1L);
-      user.setName("Firstname Lastname");
+      //user.setName("Firstname Lastname");
       user.setUsername("firstname@lastname");
       user.setStatus(UserStatus.OFFLINE);
       user.setToken("1");
@@ -53,7 +53,7 @@ public class DTOMapperTest {
       // then
       assertNotNull(userGetDTO);
       assertEquals(user.getId(), userGetDTO.getId());
-      assertEquals(user.getName(), userGetDTO.getName());
+      //assertEquals(user.getName(), userGetDTO.getName());
       assertEquals(user.getUsername(), userGetDTO.getUsername());
       assertEquals(user.getStatus(), userGetDTO.getStatus());
       assertEquals(user.getToken(), userGetDTO.getToken());

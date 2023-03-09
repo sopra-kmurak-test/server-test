@@ -12,6 +12,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -163,31 +165,33 @@ public class UserServiceIntegrationTest {
     }
 
 
-//    @Test
-//    public void updateUser_success() {
-//        // given
-//        assertNull(userRepository.findByUsername("testUsername"));
-//
-//        User testUser = new User();
-//        testUser.setName("testName");
-//        testUser.setUsername("testUsername");
-//        testUser.setPassword("123456");
-//
-//        User createdUser = userService.createUser(testUser);
-//
-//        // then
-//        assertDoesNotThrow(() -> userService.updateUser(testUser));
-//    }
+    @Test
+    public void updateUser2_success() {
+        // given
+        assertNull(userRepository.findByUsername("testUsername"));
+
+        User testUser = new User();
+        testUser.setName("testName");
+        testUser.setUsername("testUsername");
+        testUser.setPassword("123456");
+
+        User createdUser = userService.createUser(testUser);
+
+        User updateUser = new User();
+        updateUser.setUsername("updatedUsername");
+        updateUser.setBirthday(new Date());
+
+        // when
+        User updatedUser = userService.updateUser2(createdUser.getId(), updateUser);
+
+        // then
+        assertNotNull(updatedUser);
+        assertEquals(updatedUser.getUsername(), updateUser.getUsername());
+        assertEquals(updatedUser.getBirthday(), updateUser.getBirthday());
+    }
 
 
-//    @Test
-//    public void updateUser_throwsException() {
-//        User testUser = new User();
-//        testUser.setId(1L);
-//        testUser.setPassword("testName");
-//        testUser.setUsername("testUsername");
-//        assertThrows(ResponseStatusException.class, () -> userService.updateUser(testUser));
-//    }
+
 
 
 }
