@@ -1,6 +1,8 @@
 package ch.uzh.ifi.hase.soprafs23.rest.mapper;
 
 import ch.uzh.ifi.hase.soprafs23.entity.User;
+import ch.uzh.ifi.hase.soprafs23.entity.Chat;
+import ch.uzh.ifi.hase.soprafs23.rest.dto.ChatDTO;
 import ch.uzh.ifi.hase.soprafs23.rest.dto.UserGetDTO;
 import ch.uzh.ifi.hase.soprafs23.rest.dto.UserPostDTO;
 import ch.uzh.ifi.hase.soprafs23.rest.dto.UserPutDTO;
@@ -39,4 +41,12 @@ public interface DTOMapper {
   @Mapping(source = "username", target = "username")
   @Mapping(source = "birthday", target = "birthday")
   User convertUserPutDTOtoEntity(UserPutDTO userPutDTO);
+
+  @Mapping(source = "userId1", target = "userId1")
+  @Mapping(source = "userId2", target = "userId2")
+  Chat convertChatDTOtoEntity(ChatDTO chatDTO);
+
+  @Mapping(source = "userId1", target = "userId1")
+  @Mapping(source = "userId2", target = "userId2")
+  ChatDTO convertEntityToChatDTO(Chat chat);
 }

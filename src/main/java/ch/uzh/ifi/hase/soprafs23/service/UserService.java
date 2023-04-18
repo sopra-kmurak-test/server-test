@@ -140,4 +140,5 @@ public class UserService {
         userRepository.flush();
         return byUsernameAndPassword;
     }
-}
+
+ }
