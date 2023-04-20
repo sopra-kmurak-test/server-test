@@ -31,6 +31,8 @@ public class User implements Serializable {
 
   @Column(nullable = false, unique = true)
   private String username;
+    
+  private String name;
 
   @Column()
   private String password;
@@ -43,6 +45,10 @@ public class User implements Serializable {
 
   @Column()
   private Date birthday;
+    
+  private String email;
+
+  private Date creation_time;
 
   @Column()
   private Date creation_date;
@@ -109,5 +115,30 @@ public class User implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
-    }
+    
+    public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+        
+    public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+        
+    public Date getCreation_time() {
+		return creation_time;
+	}
+
+	public void setCreation_time(Date creation_time) {
+		this.creation_time = creation_time;
+	}
+    
+       
 }
