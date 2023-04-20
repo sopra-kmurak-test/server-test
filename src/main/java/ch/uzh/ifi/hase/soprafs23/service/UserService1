@@ -1,0 +1,59 @@
+package com.example.accessingdatamysql;
+
+import com.example.accessingdatamysql.User;
+import com.example.accessingdatamysql.UserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
+
+import java.util.Date;
+@Service
+@Transactional
+public class UserService {
+    private final Logger log = LoggerFactory.getLogger(UserService.class);
+
+    private final UserRepository userRepository;
+
+    @Autowired
+    public UserService(@Qualifier("userRepository") UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    public User createUser(String name, String password){
+        User n = new User();
+        n.setName(name);
+        n.setPassword(password);
+
+        n.setBirthday(null);
+        n.setEmail(null);
+        n.setCreation_time(new Date());
+
+        checkIfUserExists(n);
+
+        userRepository.save(n);
+        return n;
+    }
+
+    private void checkIfUserExists(User userToBeCreated) {
+        User userByUsername = userRepository.findByName(userToBeCreated.getName());
+        String baseErrorMessage = "The %s provided %s not unique. Therefore, the user could not be created!";
+        if (userByUsername != null) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, String.format(baseErrorMessage, "username", "is"));
+        }
+    }
+
+    @Transactional
+    public void updateUserPassword(String newPassword,Integer id) {
+        userRepository.updatePassword(newPassword, id);
+    }
+
+    public void deleteUserById(Integer id) {
+        userRepository.deleteById(id);
+    }
+
+}
