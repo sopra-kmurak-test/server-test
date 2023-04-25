@@ -4,109 +4,40 @@ import ch.uzh.ifi.hase.soprafs23.constant.UserStatus;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.Date;
 
-/**
- * Internal User Representation
- * This class composes the internal representation of the user and defines how
- * the user is stored in the database.
- * Every variable will be mapped into a database field with the @Column
- * annotation
- * - nullable = false -> this cannot be left empty
- * - unique = true -> this value must be unqiue across the database -> composes
- * the primary key
- */
 @Entity
-@Table(name = "USER")
-public class User implements Serializable {
+public class  User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
 
-  private static final long serialVersionUID = 1L;
+    @Column(name="username")
+    private String username;
+    @Column(name="password")
+    private String password;
+    @Column(name="email")
+    private String email;
+    @Column(name="register_time")
+    private Timestamp register_time;
+    @Column(name="has_new")
+    private Boolean hasNew;
 
-  @Id
-  @GeneratedValue
-  private Long id;
-
-  @Column()
-  private String name;
-
-  @Column(nullable = false, unique = true)
-  private String username;
-    
-  private String name;
-
-  @Column()
-  private String password;
-
-  @Column(nullable = false, unique = true)
-  private String token;
-
-  @Column(nullable = false)
-  private UserStatus status;
-
-  @Column()
-  private Date birthday;
-    
-  private String email;
-
-  private Date creation_time;
-
-  @Column()
-  private Date creation_date;
-
-  public Long getId() {
-    return id;
-  }
-
-  public void setId(Long id) {
-    this.id = id;
-  }
-
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  public String getUsername() {
-    return username;
-  }
-
-  public void setUsername(String username) {
-    this.username = username;
-  }
-
-  public String getToken() {
-    return token;
-  }
-
-  public void setToken(String token) {
-    this.token = token;
-  }
-
-  public UserStatus getStatus() {
-    return status;
-  }
-
-  public void setStatus(UserStatus status) {
-    this.status = status;
-  }
-
-    public Date getBirthday() {
-        return birthday;
+    public Integer getId() {
+        return id;
     }
 
-    public void setBirthday(Date birthday) {
-        this.birthday = birthday;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public Date getCreation_date() {
-        return creation_date;
+    public String getUsername() {
+        return username;
     }
 
-    public void setCreation_date(Date creation_date) {
-        this.creation_date = creation_date;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -115,30 +46,29 @@ public class User implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
-    
-    public String getName() {
-		return name;
-	}
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
-        
     public String getEmail() {
-		return email;
-	}
+        return email;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
-        
-    public Date getCreation_time() {
-		return creation_time;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public void setCreation_time(Date creation_time) {
-		this.creation_time = creation_time;
-	}
-    
-       
+    public Timestamp getRegister_time() {
+        return register_time;
+    }
+
+    public void setRegister_time(Timestamp register_time) {
+        this.register_time = register_time;
+    }
+
+    public Boolean getHasNew() {
+        return hasNew;
+    }
+
+    public void setHasNew(Boolean hasNew) {
+        this.hasNew = hasNew;
+    }
 }
