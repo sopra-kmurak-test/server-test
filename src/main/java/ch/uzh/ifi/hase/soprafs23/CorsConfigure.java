@@ -11,7 +11,7 @@ public class CorsConfigure {
     @Bean
     public CorsFilter corsFilter() {
         CorsConfiguration config = new CorsConfiguration();
-        config.addAllowedOrigin("http://localhost:3000/");
+        config.addAllowedOrigin("https://sopra-fs23-group-38-client.oa.r.appspot.com/");
         config.setAllowCredentials(true);
 
 
